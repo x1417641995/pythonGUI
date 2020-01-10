@@ -2,7 +2,83 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QAction, qApp, QApplication, QMenu
 from PyQt5.QtGui import QIcon
 
+
+#main
+import sys
+from PyQt5.QtWidgets import QMainWindow, QTextEdit, QAction, QApplication
+from PyQt5.QtGui import QIcon
+
+
 class Example(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+
+    def initUI(self):               
+
+        textEdit = QTextEdit()
+        self.setCentralWidget(textEdit)
+
+        exitAct = QAction(QIcon('/ta-ju/peg/2.png'), 'Exit', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.setStatusTip('Exit application')
+        exitAct.triggered.connect(self.close)
+
+        self.statusBar()
+
+        menubar = self.menuBar()
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(exitAct)
+
+        toolbar = self.addToolBar('Exit')
+        toolbar.addAction(exitAct)
+
+        self.setGeometry(300, 300, 350, 250)
+        self.setWindowTitle('Main window')    
+        self.show()
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
+
+# 工具欄
+'''class Example(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.initUI()
+
+
+    def initUI(self):               
+
+        exitAct = QAction(QIcon('/ta-ju/peg/1.png'), 'Exit2', self)
+        exitAct.setShortcut('Ctrl+Q')
+        exitAct.triggered.connect(qApp.quit)
+        
+        #show 工具欄
+        self.toolbar = self.addToolBar('Exit2')
+        self.toolbar.addAction(exitAct)
+
+        self.setGeometry(300, 300, 300, 200)
+        self.setWindowTitle('Toolbar')    
+        self.show()
+
+
+if __name__ == '__main__':
+
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())'''
+    
+#右鍵menu
+'''class Example(QMainWindow):
 
     def __init__(self):
         super().__init__()
@@ -16,7 +92,7 @@ class Example(QMainWindow):
         self.setWindowTitle('Context menu')    
         self.show()
 
-
+    #create 右鍵 menu
     def contextMenuEvent(self, event):
 
            cmenu = QMenu(self)
@@ -24,17 +100,24 @@ class Example(QMainWindow):
            newAct = cmenu.addAction("New")
            opnAct = cmenu.addAction("Open")
            quitAct = cmenu.addAction("Quit")
+           
+           #顯示選單
            action = cmenu.exec_(self.mapToGlobal(event.pos()))
-
+           
+           if action == newAct:
+               print("newAct")
+           if action == opnAct:
+               print("Open")
            if action == quitAct:
                qApp.quit()
+        
 
 
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     ex = Example()
-    sys.exit(app.exec_())
+    sys.exit(app.exec_())'''
 
 #勾選menu
 '''class Example(QMainWindow):
